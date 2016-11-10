@@ -16,4 +16,5 @@ use Illuminate\Http\Request;
 Route::group(['prefix'=>'v1'],function (){
     Route::post('get_key','Ver1\ApiController@get_key');
     Route::post('check','Ver1\ApiController@check');
+    Route::post('count','Ver1\ApiController@count');
 });

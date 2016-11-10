@@ -14,7 +14,7 @@ class ApiController extends Controller
     /**
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function get_key(Request $request)
     {
@@ -29,6 +29,10 @@ class ApiController extends Controller
         return response('bad request', 400);
     }
 
+    /**
+     * @param PostDataCheck $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function check(PostDataCheck $request) {
 
         $content = Content::firstOrNew([
@@ -56,6 +60,14 @@ class ApiController extends Controller
         return response()->json([
             'analysed' => $content->analysed,
             'safe' => $content->safe
+        ]);
+    }
+    public function count(Request $request)
+    {
+        $user = User::where('user_key', $request->input('user_key'))->first();
+        return response()->json([
+            'count_positiv' => $user->count_positiv,
+            'count_negativ' => $user->count_negativ
         ]);
     }
 }

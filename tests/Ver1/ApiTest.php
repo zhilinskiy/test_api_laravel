@@ -70,4 +70,24 @@ class ApiTest extends TestCase
             ->seeStatusCode(422);
 
     }
+
+    /**
+     * Tes count path.
+     *
+     * @return void
+     */
+    public function testCountPath() {
+        $user = factory(App\Models\Ver1\User::class)->create();
+        $user->count_positiv = 100;
+        $user->count_negativ = 10;
+        $user->save();
+        $this->json('POST', '/api/v1/count', [
+            'user_key' => $user->user_key
+        ])
+            ->seeStatusCode(200)
+            ->seeJson([
+                'count_negativ' => (string)$user->count_negativ,
+                'count_positiv' => (string)$user->count_positiv
+            ]);
+    }
 }
