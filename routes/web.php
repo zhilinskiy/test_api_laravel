@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/test_api', function () {
+    return view('home', [
+        'users' => App\Models\Ver1\User::all(),
+        'contents' => App\Models\Ver1\Content::all(),
+        'urls' => App\Models\Ver1\Url::all(),
+    ]);
 });

@@ -23,7 +23,9 @@ class ApiController extends Controller
             $user->browser_name = $request->input('browser_name');
             $user->generateKey()->save();
             return response()->json([
-                'user_key' => $user->user_key
+                'user_key' => $user->user_key,
+                //only for test
+                'html' => view('partials.key_table')->with('users', App\Models\Ver1\User::all())->render()
             ]);
         }
         return response('bad request', 400);
@@ -59,7 +61,11 @@ class ApiController extends Controller
 
         return response()->json([
             'analysed' => $content->analysed,
-            'safe' => $content->safe
+            'safe' => $content->safe,
+            //only for test
+            'content' => view('partials.content_table')->with('contents', App\Models\Ver1\Content::all())->render(),
+            'key' => view('partials.key_table')->with('users', App\Models\Ver1\User::all())->render(),
+            'url' => view('partials.url_table')->with('urls', App\Models\Ver1\Url::all())->render()
         ]);
     }
     public function count(Request $request)
@@ -67,7 +73,9 @@ class ApiController extends Controller
         $user = User::where('user_key', $request->input('user_key'))->first();
         return response()->json([
             'count_positiv' => $user->count_positiv,
-            'count_negativ' => $user->count_negativ
+            'count_negativ' => $user->count_negativ,
+            //only for test
+        'html' => view('partials.count_table')->with('user', $user)->render()
         ]);
     }
 }

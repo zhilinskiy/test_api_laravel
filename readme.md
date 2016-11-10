@@ -24,3 +24,56 @@ Users can see a number of safe and not safe sites that they visited.
 * You need to implement backend and create an API format with API documentation.
 * You can use any language and any framework of your choice as well as third party libraries.
 * Results should be presented in form of a GitHub repository.
+
+# API documentation
+
+All request should be POST and with prefix 'api/v1/'
+
+Available routs:
+ * /get_key - register users
+ * /check - check content and js files
+ * /count - user statistic
+ 
+## /get_key Route
+
+In order to use api first time you have send first request to this route.
+  * Request should have field 'browser_name' equals to user browser name.
+  * Return 'user_key' which you have to use in additional request
+  
+## /check Route
+In order to check content send request to this route.
+  * Request should have fields:
+    
+    'user_key' with valid user key from /get_key route.
+    
+    'content' - with content that should be checked
+    
+    'js_files' - with js files that should be checked
+    
+    'url' - content page url.
+    
+  * Return:
+    
+    'analysed' boolean - if true - content analysed, if false content not yet analysed
+    
+    'safe' boolean - if true - content safe, if false content not safe
+    
+## /count Route
+In order to get user statistic send request to this route.
+  * Request should have fields:
+    
+    'user_key' with valid user key from /get_key route.
+        
+  * Return:
+    
+    'count_negativ' - numbers of unsafe urls
+    
+    'count_positiv' - numbers of unsafe urls
+                        
+## Api testing
+In order to test api - go to /api_test page
+
+To seed db with test data: in terminal - php artisan seed
+
+![Test page screen shot](testapilaravel_test_api.jpg)
+
