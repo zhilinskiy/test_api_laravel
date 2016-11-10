@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateUrlsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('urls', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('browser_name');
-            $table->integer('count_positiv')->unsigned()->default(0);
-            $table->integer('count_negativ')->unsigned()->default(0);
-            $table->string('user_key')->index();
+            $table->integer('user_id')->unsigned()->index();
+            $table->string('url')->index();
+            $table->boolean('safe')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +30,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        Schema::dropIfExists('urls');
     }
 }

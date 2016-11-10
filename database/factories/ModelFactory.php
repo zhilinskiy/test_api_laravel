@@ -11,13 +11,28 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
-    static $password;
+    $factory->define(App\Models\Ver1\User::class, function (Faker\Generator $faker) {
+        return [
+            'browser_name' => $faker->userAgent,
+            'count_positiv' => 0,
+            'count_negativ' => 0,
+            'user_key' => uniqid('', true),
+        ];
+    });
 
-    return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
-    ];
-});
+    $factory->define(App\Models\Ver1\Content::class, function (Faker\Generator $faker) {
+        return [
+            'content' => $faker->paragraph,
+            'js_files' => $faker->paragraph,
+            'analysed' => 0,
+            'safe' => 0
+        ];
+    });
+
+    $factory->define(App\Models\Ver1\Url::class, function (Faker\Generator $faker) {
+        return [
+            'url' => $faker->url,
+            'user_id' => 1,
+            'safe' => $faker->boolean
+        ];
+    });
